@@ -5,6 +5,7 @@
 //  Created by eliottwang on 2024/11/18.
 //
 
+import AVFoundation
 import SwiftUI
 
 import ComposableArchitecture
@@ -12,6 +13,8 @@ import ComposableArchitecture
 final class AppDelegate: NSObject, UIApplicationDelegate {
     override public init() {
         isPerceptionCheckingEnabled = false
+        try! AVAudioSession.sharedInstance()
+            .setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
     }
 }
 
