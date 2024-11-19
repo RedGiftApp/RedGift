@@ -57,7 +57,6 @@ struct FeedsView: View {
     .task {
         store.send(.fetchGifList)
     }
-    .preferredColorScheme(.dark)
     }
 }
 

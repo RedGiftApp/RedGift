@@ -37,7 +37,6 @@ struct RedGiftApp: App {
     var body: some Scene {
         WindowGroup {
             FeedsView(store: Self.store)
-                .preferredColorScheme(.dark)
         }
     }
 }

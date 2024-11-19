@@ -175,7 +175,6 @@ struct GifView: View {
     .onTapGesture {
         store.send(.playerAction(.togglePause))
     }
-    .preferredColorScheme(.dark)
     }
 }
 
