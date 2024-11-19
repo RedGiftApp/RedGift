@@ -107,18 +107,12 @@ struct GifView: View {
                     }
                 }
             }
-                
-            if let desc = store.gif.description, !desc.isEmpty {
-                Text(desc)
-                    .font(.system(size: 14))
-                    .foregroundStyle(.gray)
-                    .shadow(radius: 5)
-            } else if let desc = store.user.description, !desc.isEmpty {
-                Text(desc)
-                    .font(.system(size: 14))
-                    .foregroundStyle(.gray)
-                    .shadow(radius: 5)
-            }
+            
+            let gifDesc = store.gif.description ?? ""
+            let userDesc = store.user.description ?? ""
+            let desc = !gifDesc.isEmpty ? gifDesc : userDesc
+            TextEx(desc: desc as NSString, size: 14, color: .gray)
+                .shadow(radius: 5)
         }
         .padding()
             
