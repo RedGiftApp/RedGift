@@ -74,7 +74,8 @@ struct FeedsView_Previews: PreviewProvider {
                                 user: GifList.sample.users[0],
                                 pageIndex: 0
                             )
-                        })
+                        }
+                    )
                 ),
                 reducer: { FeedsFeature() }
             )

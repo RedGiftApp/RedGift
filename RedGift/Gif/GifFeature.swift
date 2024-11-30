@@ -25,7 +25,7 @@ struct GifFeature {
             self.id = id
             self.gif = gif
             self.user = user
-            self.playerState = PlayerFeature.State(urls: gif.urls, pageIndex: pageIndex)
+            playerState = PlayerFeature.State(urls: gif.urls, pageIndex: pageIndex)
         }
     }
 

@@ -11,164 +11,60 @@ import ComposableArchitecture
 
 struct GifView: View {
     let store: StoreOf<GifFeature>
-    
-    var body: some View { ZStack {
-        GeometryReader { proxy in
-            AsyncImage(url: URL(string: store.playerState.urls.thumbnail)) { result in
-                result.image?
-                    .resizable()
-                    .scaledToFill()
+
+    var body: some View {
+        ZStack {
+            // Backdrop
+            BackdropView(url: store.playerState.urls.thumbnail)
+
+            // Player-Poster
+            PosterView(url: store.playerState.urls.thumbnail)
+
+            // Player-Video
+            PlayerView(store: store.scope(state: \.playerState, action: \.playerAction))
+
+            // Player-PlayButton
+            PlayButtonView(doShow: store.playerState.isPaused)
+
+            // ProgressBar
+            ProgressBar(
+                bufferTime: store.playerState.bufferTime,
+                currentTime: store.playerState.currentTime,
+                totalDuration: store.gif.duration
+            ) { store.send(.playerAction(.seek($0))) }
+
+            // MetaInfo
+            ZStack {
+                let userName = store.user.name ?? ""
+                let user = !userName.isEmpty ? userName : store.user.username
+                let gifDesc = store.gif.description ?? ""
+                let userDesc = store.user.description ?? ""
+                let desc = !gifDesc.isEmpty ? gifDesc : userDesc
+                UserInfoView(
+                    profile: store.user.profileImageUrl,
+                    isFollowed: !FeedsFeature.isMuted,
+                    toggleFollowed: { store.send(.playerAction(.toggleMuted)) },
+                    timestamp: store.gif.createDate,
+                    user: user,
+                    isVerified: store.user.verified,
+                    description: desc
+                )
             }
-            .frame(width: proxy.size.width, height: proxy.size.height)
-            .blur(radius: 20)
-        }
-        .ignoresSafeArea(edges: .all)
-        
-        PlayerView(store: store.scope(state: \.playerState, action: \.playerAction))
-        
-        if store.playerState.isShowingPlayPauseAnimation {
-            Image(systemName: store.playerState.isPaused ? "pause.circle.fill" : "play.circle.fill")
-                .resizable()
-                .frame(width: 80, height: 80)
-                .foregroundColor(.white)
-                .shadow(radius: 10)
-        }
-        
-        LinearGradient(
-            gradient: Gradient(colors: [.clear, .black.opacity(0.5)]),
-            startPoint: .center,
-            endPoint: .bottom
-        )
-        .ignoresSafeArea(edges: .bottom)
-        
-        if store.playerState.isBuffering {
-            ProgressView()
-        }
-        
-        ProgressViewEx(
-            progressColor: .darkGray,
-            trackColor: .clear,
-            style: .bar,
-            progress: Binding(
-                get: { store.playerState.bufferTime / store.gif.duration },
-                set: { store.send(.playerAction(.seek($0 * store.gif.duration))) }
+            .frame(maxHeight: .infinity, alignment: .bottom)
+
+            // SideBar
+            SideBarView(
+                views: store.gif.views,
+                likes: store.gif.likes,
+                isLiked: FeedsFeature.isMuted,
+                toggleLiked: { store.send(.playerAction(.toggleMuted)) },
+                isMuted: FeedsFeature.isMuted,
+                toggleMuted: { store.send(.playerAction(.toggleMuted)) }
             )
-        )
-        .frame(maxHeight: .infinity, alignment: .top)
-        
-        SliderEx(
-            thumbColor: .clear,
-            maxTrackColor: .clear,
-            value: Binding(
-                get: { store.playerState.currentTime / store.gif.duration },
-                set: { store.send(.playerAction(.seek($0 * store.gif.duration))) }
-            )
-        )
-        .offset(y: -15)
-        .padding(.horizontal, -14)
-        .frame(maxHeight: .infinity, alignment: .top)
-        
-        HStack { VStack(alignment: .leading, spacing: 6) {
-            Spacer()
-                
-            HStack {
-                if let url = store.user.profileImageUrl {
-                    AsyncImage(
-                        url: URL(string: url),
-                        content: { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .clipShape(Circle())
-                        },
-                        placeholder: { ProgressView() }
-                    )
-                    .frame(width: 60, height: 60)
-                    .shadow(radius: 5)
-                }
-                    
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("\(store.gif.createDate.prettyDate())")
-                        .font(.system(size: 14))
-                        .foregroundStyle(.gray)
-                        .shadow(radius: 5)
-                        
-                    HStack(spacing: 3) {
-                        Text("\(store.user.name ?? store.user.username)")
-                            .font(.system(size: 18, weight: .bold))
-                            .shadow(radius: 5)
-                            
-                        if store.gif.verified {
-                            Image(systemName: "checkmark.seal")
-                                .resizable()
-                                .frame(width: 16, height: 16)
-                                .shadow(radius: 5)
-                        }
-                    }
-                }
-            }
-            
-            let gifDesc = store.gif.description ?? ""
-            let userDesc = store.user.description ?? ""
-            let desc = !gifDesc.isEmpty ? gifDesc : userDesc
-            TextEx(desc: desc as NSString, size: 14, color: .gray)
-                .shadow(radius: 5)
         }
-        .padding()
-            
-        Spacer()
-            
-        VStack(spacing: 4) {
-            Spacer()
-                
-            Image(systemName: "play.rectangle.on.rectangle.circle.fill")
-                .resizable()
-                .frame(width: 44, height: 44)
-                .shadow(radius: 5)
-                
-            Text(store.gif.views.prettyFormat())
-                .font(.system(size: 12))
-                .padding(.bottom)
-                .shadow(radius: 5)
-                
-            Image(systemName: "heart.circle.fill")
-                .resizable()
-                .frame(width: 44, height: 44)
-                .shadow(radius: 5)
-                
-            Text(store.gif.likes.prettyFormat())
-                .font(.system(size: 12))
-                .padding(.bottom)
-                .shadow(radius: 5)
-                
-            if store.gif.hasAudio {
-                Button(action: {
-                    store.send(.playerAction(.toggleMuted))
-                }) {
-                    Image(systemName: FeedsFeature.isMuted ? "speaker.circle.fill" : "speaker.wave.2.circle.fill")
-                        .resizable()
-                        .frame(width: 44, height: 44)
-                        .shadow(radius: 5)
-                }
-                .tint(.white)
-            } else {
-                Image(systemName: "speaker.slash.circle.fill")
-                    .resizable()
-                    .frame(width: 44, height: 44)
-                    .shadow(radius: 5)
-            }
-                
-            Text(store.gif.hasAudio ? FeedsFeature.isMuted ? "Unmute" : "Mute" : "No Audio")
-                .font(.system(size: 12))
-                .padding(.bottom)
-                .shadow(radius: 5)
+        .onTapGesture {
+            store.send(.playerAction(.togglePause))
         }
-        .padding()
-        }
-    }
-    .onTapGesture {
-        store.send(.playerAction(.togglePause))
-    }
     }
 }
 

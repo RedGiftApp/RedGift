@@ -10,11 +10,11 @@ import Foundation
 extension Int {
     func prettyFormat() -> String {
         if self >= 1_000_000_000 {
-            return String(format: "%.1fb", Double(self) / 1_000_000_000)
+            return String(format: "%.0fb", Double(self) / 1_000_000_000)
         } else if self >= 1_000_000 {
-            return String(format: "%.1fm", Double(self) / 1_000_000)
-        } else if self >= 1_000 {
-            return String(format: "%.1fk", Double(self) / 1_000)
+            return String(format: "%.0fm", Double(self) / 1_000_000)
+        } else if self >= 1000 {
+            return String(format: "%.0fk", Double(self) / 1000)
         } else {
             return "\(self)"
         }

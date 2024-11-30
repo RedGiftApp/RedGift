@@ -3,25 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1D8D7A082CEAA8BD00A53E60 /* Player in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7A072CEAA8BD00A53E60 /* Player */; };
 		1D8D7A0B2CEAA8EF00A53E60 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7A0A2CEAA8EF00A53E60 /* ComposableArchitecture */; };
 		1D8D7ACC2CEB703B00A53E60 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7ACB2CEB703B00A53E60 /* Logging */; };
+		1DEE718A2CF9F2DE00138D58 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1DEE71892CF9F2DE00138D58 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1D8D79F52CEAA80900A53E60 /* RedGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		1D8D79F72CEAA80900A53E60 /* RedGift */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RedGift;
-			sourceTree = "<group>";
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1DEE724A2CFA72DF00138D58 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1D8D79F42CEAA80900A53E60 /* RedGift */;
 		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1D8D79F72CEAA80900A53E60 /* RedGift */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1DEE724A2CFA72DF00138D58 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = RedGift; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DEE718A2CF9F2DE00138D58 /* Kingfisher in Frameworks */,
 				1D8D7ACC2CEB703B00A53E60 /* Logging in Frameworks */,
 				1D8D7A0B2CEAA8EF00A53E60 /* ComposableArchitecture in Frameworks */,
 				1D8D7A082CEAA8BD00A53E60 /* Player in Frameworks */,
@@ -77,6 +85,7 @@
 				1D8D7A072CEAA8BD00A53E60 /* Player */,
 				1D8D7A0A2CEAA8EF00A53E60 /* ComposableArchitecture */,
 				1D8D7ACB2CEB703B00A53E60 /* Logging */,
+				1DEE71892CF9F2DE00138D58 /* Kingfisher */,
 			);
 			productName = RedGift;
 			productReference = 1D8D79F52CEAA80900A53E60 /* RedGift.app */;
@@ -98,6 +107,7 @@
 				};
 			};
 			buildConfigurationList = 1D8D79F02CEAA80900A53E60 /* Build configuration list for PBXProject "RedGift" */;
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -110,8 +120,8 @@
 				1D8D7A062CEAA8BD00A53E60 /* XCRemoteSwiftPackageReference "Player" */,
 				1D8D7A092CEAA8EF00A53E60 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				1D8D7ACA2CEB703B00A53E60 /* XCRemoteSwiftPackageReference "swift-log" */,
+				1DEE71882CF9F2DE00138D58 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 1D8D79F62CEAA80900A53E60 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -271,15 +281,8 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = TFV9T93YTR;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RedGift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -304,15 +307,8 @@
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = TFV9T93YTR;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RedGift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -375,6 +371,14 @@
 				minimumVersion = 1.6.1;
 			};
 		};
+		1DEE71882CF9F2DE00138D58 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -392,6 +396,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1D8D7ACA2CEB703B00A53E60 /* XCRemoteSwiftPackageReference "swift-log" */;
 			productName = Logging;
+		};
+		1DEE71892CF9F2DE00138D58 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1DEE71882CF9F2DE00138D58 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
