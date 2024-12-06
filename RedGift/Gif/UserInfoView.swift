@@ -46,7 +46,8 @@ struct UserInfoView: View {
         let desc = description.trimmingCharacters(in: .whitespacesAndNewlines)
         if !desc.isEmpty {
           Text(desc).font(.custom("Poppins-Medium", size: 12.uiScaled())).opacity(0.6)
-            .lineLimit(isCollapsed ? 1 : nil).onTapGesture { isCollapsed.toggle() }
+            .lineLimit(isCollapsed ? 1 : nil)
+            .onTapGesture { withAnimation(.smooth) { isCollapsed.toggle() } }
         }
       }
 
