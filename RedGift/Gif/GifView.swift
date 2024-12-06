@@ -10,6 +10,12 @@ import SwiftUI
 
 struct GifView: View {
   let store: StoreOf<GifFeature>
+  let tagListWidth: CGFloat
+
+  init(store: StoreOf<GifFeature>) {
+    self.store = store
+    self.tagListWidth = Self.getTagListWidth(niches: store.niches, tags: store.tags)
+  }
 
   var body: some View {
     ZStack {
@@ -37,7 +43,6 @@ struct GifView: View {
       ) { store.send(.playerAction(.seek($0))) }
 
       // MetaInfo
-      let tagListWidth = getTagListWidth()
       MetaInfoView(
         gif: store.gif, user: store.user, niches: store.niches, tags: store.tags,
         toggleFollowed: { store.send(.playerAction(.toggleMuted)) },
@@ -53,7 +58,7 @@ struct GifView: View {
     .onTapGesture { store.send(.playerAction(.togglePause)) }
   }
 
-  func getTagListWidth() -> CGFloat {
+  private static func getTagListWidth(niches: [GifList.Niche], tags: [String]) -> CGFloat {
     func getTextWidth(text: String) -> CGFloat {
       return NSString(string: text)
         .size(withAttributes: [
@@ -78,14 +83,14 @@ struct GifView: View {
     }
 
     let padding: CGFloat = 16
-    let nichesWidth = store.niches
-      .map {
+    let nichesWidth =
+      niches.map {
         $0.thumbnail == nil
           ? widthWithoutThumbnail(text: $0.name) : widthWithThumbnail(text: $0.name)
       }
       .reduce(into: 0, { $0 += $1 })
-    let tagsWidth = store.tags.map { widthWithoutThumbnail(text: $0) }.reduce(into: 0, { $0 += $1 })
-    let spacing = min(0, CGFloat(store.niches.count + store.tags.count - 1)) * 8
+    let tagsWidth = tags.map { widthWithoutThumbnail(text: $0) }.reduce(into: 0, { $0 += $1 })
+    let spacing = max(0, CGFloat(niches.count + tags.count - 1)) * 8
     return padding + nichesWidth + tagsWidth + spacing + padding
   }
 }
