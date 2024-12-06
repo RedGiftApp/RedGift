@@ -22,56 +22,61 @@ struct SideBarView: View {
     let label: String
 
     var body: some View {
-      VStack(spacing: 5.uiScaled()) {
-        Image(icon).scaleEffect(1.uiScaled())
+      VStack(alignment: .trailing, spacing: 5.uiScaled()) {
+        Image(icon).resizable().scaledToFit().frame(width: 24.uiScaled(), height: 24.uiScaled())
+          .padding(.trailing, 16)
 
         Text(label).font(.custom("Poppins-Regular", size: 12.uiScaled()))
-              .frame(width: 24.uiScaled(), height: 18.uiScaled())
+          .frame(width: 32 + 24.uiScaled(), height: 18.uiScaled())
       }
     }
   }
 
   struct BiStateItem: View {
     let icons: [String]
+    let iconHeight: Int
     let labels: [String]
     static let fonts = ["Poppins-Regular", "Poppins-Medium"]
     let currentState: Bool
     let onTapGuesture: () -> Void
 
-    init(_ state0: Item, _ state1: Item, _ state: Bool, onTap: @escaping () -> Void) {
+    init(_ state0: Item, _ state1: Item, _ state: Bool, _ height: Int, onTap: @escaping () -> Void)
+    {
       icons = [state0.icon, state1.icon]
+      iconHeight = height
       labels = [state0.label, state1.label]
       currentState = state
       onTapGuesture = onTap
     }
 
     var body: some View {
-      VStack(spacing: 5.uiScaled()) {
-        Image(icons[currentState ? 1 : 0]).scaleEffect(1.uiScaled())
+      VStack(alignment: .trailing, spacing: 5.uiScaled()) {
+        Image(icons[currentState ? 1 : 0]).resizable().scaledToFit()
+          .frame(width: 24.uiScaled(), height: iconHeight.uiScaled()).padding(.trailing, 16)
           .onTapGesture { onTapGuesture() }
 
         Text(labels[currentState ? 1 : 0])
           .font(.custom(Self.fonts[currentState ? 1 : 0], size: 12.uiScaled()))
-          .frame(width: 24.uiScaled(), height: 18.uiScaled())
+          .frame(width: 32 + 24.uiScaled(), height: 18.uiScaled())
       }
     }
   }
 
   var body: some View {
-    VStack(spacing: 13.uiScaled()) {
+    VStack(alignment: .trailing, spacing: 13.uiScaled()) {
       Item(icon: "SideBar/Views", label: views.prettyFormat())
 
       BiStateItem(
         Item(icon: "SideBar/Liked", label: (likes + 1).prettyFormat()),
-        Item(icon: "SideBar/Unliked", label: likes.prettyFormat()), isLiked
+        Item(icon: "SideBar/Unliked", label: likes.prettyFormat()), isLiked, 24
       ) { toggleLiked() }
 
       BiStateItem(
         Item(icon: "SideBar/SoundOn", label: "On"), Item(icon: "SideBar/SoundOff", label: "Off"),
-        isMuted
+        isMuted, 18
       ) { toggleMuted() }
     }
-    .padding(.trailing, 16).padding(.bottom, saveSpaceForTagList ? 16 + 44.uiScaled() : 16)
+    .padding(.bottom, saveSpaceForTagList ? 16 + 44.uiScaled() : 16)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
     .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
   }
