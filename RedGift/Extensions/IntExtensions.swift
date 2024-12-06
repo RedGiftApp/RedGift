@@ -8,15 +8,13 @@
 import Foundation
 
 extension Int {
+  func uiScaled() -> CGFloat { return CGFloat(self) * RedGiftApp.scalingFactor }
+
   func prettyFormat() -> String {
     if self >= 1_000_000_000 {
       return String(format: "%.0fb", Double(self) / 1_000_000_000)
-    } else if self >= 100_000_000 {
-      return String(format: "%.1fb", Double(self) / 1_000_000_000)
     } else if self >= 1_000_000 {
       return String(format: "%.0fm", Double(self) / 1_000_000)
-    } else if self >= 100_000 {
-      return String(format: "%.1fm", Double(self) / 1_000_000)
     } else if self >= 1000 {
       return String(format: "%.0fk", Double(self) / 1000)
     } else {

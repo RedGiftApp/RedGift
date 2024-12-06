@@ -20,22 +20,23 @@ struct UserInfoView: View {
 
   var body: some View {
     ZStack(alignment: .topLeading) {
-      VStack(alignment: .leading, spacing: 8) {
-        HStack(spacing: 8) {
+      VStack(alignment: .leading, spacing: 8.uiScaled()) {
+        HStack(spacing: 8.uiScaled()) {
           ZStack {
             Image("UserInfo/Profile").resizable()
 
             if let profile = profile { KFImage(URL(string: profile)).resizable() }
           }
-          .scaledToFill().frame(width: 48, height: 48).clipShape(Circle())
-          .shadow(color: .black, radius: 5, x: 1, y: 0)
+          .scaledToFill().frame(width: 48.uiScaled(), height: 48.uiScaled()).clipShape(Circle())
+          .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
 
-          VStack(alignment: .leading, spacing: 0) {
-            Text(timestamp.prettyDate()).font(.custom("Poppins-Medium", size: 12)).opacity(0.5)
-              .frame(height: 18)
+          VStack(alignment: .leading, spacing: 0.uiScaled()) {
+            Text(timestamp.prettyDate()).font(.custom("Poppins-Medium", size: 12.uiScaled()))
+              .opacity(0.5).frame(height: 18.uiScaled())
 
-            HStack(spacing: 4) {
-              Text(user).font(.custom("Poppins-Medium", size: 14)).frame(height: 21)
+            HStack(spacing: 4.uiScaled()) {
+              Text(user).font(.custom("Poppins-Medium", size: 14.uiScaled()))
+                .frame(height: 21.uiScaled())
 
               if isVerified { Image("UserInfo/Verified") }
             }
@@ -44,7 +45,7 @@ struct UserInfoView: View {
 
         let desc = description.trimmingCharacters(in: .whitespacesAndNewlines)
         if !desc.isEmpty {
-          Text(desc).font(.custom("Poppins-Medium", size: 12)).opacity(0.6)
+          Text(desc).font(.custom("Poppins-Medium", size: 12.uiScaled())).opacity(0.6)
             .lineLimit(isCollapsed ? 1 : nil).onTapGesture { isCollapsed.toggle() }
         }
       }
@@ -55,12 +56,13 @@ struct UserInfoView: View {
           endPoint: .bottom)
 
         Image(isFollowed ? "UserInfo/Followed" : "UserInfo/Unfollowed").resizable()
-          .frame(width: 9, height: isFollowed ? 6.3 : 9)
+          .frame(width: 9.uiScaled(), height: isFollowed ? 6.3.uiScaled() : 9.uiScaled())
       }
-      .frame(width: 20, height: 20).clipShape(Circle()).padding(.top, 30)
-      .onTapGesture { toggleFollowed() }
+      .frame(width: 20.uiScaled(), height: 20.uiScaled()).clipShape(Circle())
+      .padding(.top, 30.uiScaled()).onTapGesture { toggleFollowed() }
     }
-    .frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 16).padding(.trailing, 50)
+    .frame(maxWidth: .infinity, alignment: .leading).padding(.leading, 16)
+    .padding(.trailing, 16 + 34.uiScaled())
   }
 }
 

@@ -17,7 +17,7 @@ struct MetaInfoView: View {
   let enableScrollForTagList: Bool
 
   var body: some View {
-    VStack(spacing: 8) {
+    VStack(spacing: 8.uiScaled()) {
       let userName = user.name ?? ""
       let userNameOrId = !userName.isEmpty ? userName : user.username
       let gifDesc = gif.description ?? ""
@@ -30,7 +30,7 @@ struct MetaInfoView: View {
 
       TagListView(niches: niches, tags: tags, enableScroll: enableScrollForTagList)
     }
-    .padding(.vertical, 16)
+    .padding(.top, 16.uiScaled()).padding(.bottom, 16)
     .background {
       LinearGradient(
         gradient: Gradient(stops: [

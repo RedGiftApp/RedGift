@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct PlayButtonView: View {
-    var doShow: Bool
+  var doShow: Bool
 
-    var body: some View {
-        if doShow {
-            Image("Player/PlayButton")
-                .shadow(color: .black, radius: 5, x: 1, y: 0)
-        }
+  var body: some View {
+    if doShow {
+      Image("Player/PlayButton").scaleEffect(1.uiScaled())
+        .shadow(color: .black, radius: 5, x: 1, y: 0)
     }
+  }
 }
 
 #if DEBUG
-struct PlayButtonView_Previews: PreviewProvider {
+  struct PlayButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Color.red
-            PlayButtonView(doShow: true)
-        }
+      ZStack {
+        Color.red
+        PlayButtonView(doShow: true)
+      }
     }
-}
+  }
 #endif

@@ -22,10 +22,11 @@ struct SideBarView: View {
     let label: String
 
     var body: some View {
-      VStack(spacing: 5) {
-        Image(icon)
+      VStack(spacing: 5.uiScaled()) {
+        Image(icon).scaleEffect(1.uiScaled())
 
-        Text(label).font(.custom("Poppins-Regular", size: 12)).frame(height: 18)
+        Text(label).font(.custom("Poppins-Regular", size: 12.uiScaled()))
+              .frame(width: 24.uiScaled(), height: 18.uiScaled())
       }
     }
   }
@@ -45,17 +46,19 @@ struct SideBarView: View {
     }
 
     var body: some View {
-      VStack(spacing: 5) {
-        Image(icons[currentState ? 1 : 0]).onTapGesture { onTapGuesture() }
+      VStack(spacing: 5.uiScaled()) {
+        Image(icons[currentState ? 1 : 0]).scaleEffect(1.uiScaled())
+          .onTapGesture { onTapGuesture() }
 
-        Text(labels[currentState ? 1 : 0]).font(.custom(Self.fonts[currentState ? 1 : 0], size: 12))
-          .frame(height: 18)
+        Text(labels[currentState ? 1 : 0])
+          .font(.custom(Self.fonts[currentState ? 1 : 0], size: 12.uiScaled()))
+          .frame(width: 24.uiScaled(), height: 18.uiScaled())
       }
     }
   }
 
   var body: some View {
-    VStack(spacing: 13) {
+    VStack(spacing: 13.uiScaled()) {
       Item(icon: "SideBar/Views", label: views.prettyFormat())
 
       BiStateItem(
@@ -68,9 +71,9 @@ struct SideBarView: View {
         isMuted
       ) { toggleMuted() }
     }
-    .padding(.trailing, 16).padding(.bottom, saveSpaceForTagList ? 60 : 16)
+    .padding(.trailing, 16).padding(.bottom, saveSpaceForTagList ? 16 + 44.uiScaled() : 16)
     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-    .shadow(color: .black, radius: 5, x: 1, y: 0)
+    .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
   }
 }
 

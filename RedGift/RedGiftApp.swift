@@ -18,6 +18,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main struct RedGiftApp: App {
+    static let scalingFactor: CGFloat = 1.25
+
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
   static let store = Store(

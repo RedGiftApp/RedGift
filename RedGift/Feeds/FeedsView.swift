@@ -21,9 +21,9 @@ struct FeedsView: View {
           currentPage: Binding(
             get: { FeedsFeature.currentPageIndex }, set: { store.send(.updatePageIndex($0)) }))
 
-      case .fetching: ProgressView("Fetching feeds...")
+      case .fetching: ProgressView("Fetching feeds...").scaleEffect(1.uiScaled())
 
-      case .failed: Text("No feeds available.").font(.headline)
+      case .failed: Text("No feeds available.").font(.headline).scaleEffect(1.uiScaled())
       }
     }
     .task { store.send(.fetchGifList) }

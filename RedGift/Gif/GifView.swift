@@ -30,7 +30,8 @@ struct GifView: View {
 
       /// ** keep this **
       if store.playerState.isBuffering {
-        ProgressView().scaleEffect(2).shadow(color: .black, radius: 5, x: 1, y: 0)
+        ProgressView().scaleEffect(2.uiScaled())
+          .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
       }
 
       // Player-PlayButton
@@ -62,22 +63,22 @@ struct GifView: View {
     func getTextWidth(text: String) -> CGFloat {
       return NSString(string: text)
         .size(withAttributes: [
-          NSAttributedString.Key.font: UIFont(name: "Poppins-Medium", size: 12)!
+          NSAttributedString.Key.font: UIFont(name: "Poppins-Medium", size: 12.uiScaled())!
         ])
         .width
     }
 
     func widthWithThumbnail(text: String) -> CGFloat {
-      let border: CGFloat = 1
-      let padding: CGFloat = 6
-      let thumbnailWidth: CGFloat = 24
+      let border = 1.uiScaled()
+      let padding = 6.uiScaled()
+      let thumbnailWidth = 24.uiScaled()
       let textWidth = getTextWidth(text: text)
       return border + padding + thumbnailWidth + padding + textWidth + padding + border
     }
 
     func widthWithoutThumbnail(text: String) -> CGFloat {
-      let border: CGFloat = 1
-      let padding: CGFloat = 12
+      let border = 1.uiScaled()
+      let padding = 12.uiScaled()
       let textWidth = getTextWidth(text: text)
       return border + padding + textWidth + padding + border
     }
@@ -90,7 +91,7 @@ struct GifView: View {
       }
       .reduce(into: 0, { $0 += $1 })
     let tagsWidth = tags.map { widthWithoutThumbnail(text: $0) }.reduce(into: 0, { $0 += $1 })
-    let spacing = max(0, CGFloat(niches.count + tags.count - 1)) * 8
+    let spacing = max(0, CGFloat(niches.count + tags.count - 1)) * 8.uiScaled()
     return padding + nichesWidth + tagsWidth + spacing + padding
   }
 }

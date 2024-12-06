@@ -19,22 +19,27 @@ struct TagListView: View {
     var borderColor = Color("#FF536D")
 
     var body: some View {
-      HStack(spacing: 6) {
+      HStack(spacing: 6.uiScaled()) {
         if let thumbnailUrl = thumbnailUrl {
-          KFImage(URL(string: thumbnailUrl)).resizable().scaledToFill().frame(width: 24, height: 24)
-            .clipShape(Circle())
+          KFImage(URL(string: thumbnailUrl)).resizable().scaledToFill()
+            .frame(width: 24.uiScaled(), height: 24.uiScaled()).clipShape(Circle())
         }
 
-        Text(title).font(.custom("Poppins-Medium", size: 12)).frame(height: 18)
-          .shadow(color: .black, radius: 5, x: 1, y: 0)
+        Text(title).font(.custom("Poppins-Medium", size: 12.uiScaled()))
+          .frame(height: 18.uiScaled())
+          .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
       }
-      .frame(height: 35).padding(.horizontal, thumbnailUrl == nil ? 12.5 : 6.5)
-      .overlay(RoundedRectangle(cornerRadius: 24).stroke(borderColor, lineWidth: 1)).padding(0.5)
+      .frame(height: 35.uiScaled())
+      .padding(.horizontal, thumbnailUrl == nil ? 12.5.uiScaled() : 6.5.uiScaled())
+      .overlay(
+        RoundedRectangle(cornerRadius: 24.uiScaled()).stroke(borderColor, lineWidth: 1.uiScaled())
+      )
+      .padding(0.5.uiScaled())
     }
   }
 
   var body: some View {
-    VStack(spacing: 8) {
+    VStack(spacing: 8.uiScaled()) {
       if enableScroll {
         ScrollView(.horizontal, showsIndicators: false) { generateTags() }
       } else {
@@ -44,13 +49,14 @@ struct TagListView: View {
   }
 
   func generateTags() -> some View {
-    return LazyHStack(spacing: 8) {
+    return LazyHStack(spacing: 8.uiScaled()) {
       ForEach(niches, id: \.id) { niche in
         TagButton(title: niche.name, thumbnailUrl: niche.thumbnail, borderColor: .white)
       }
       ForEach(tags, id: \.self) { tag in TagButton(title: tag) }
     }
-    .frame(height: 36).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 16)
+    .frame(height: 36.uiScaled()).frame(maxWidth: .infinity, alignment: .leading)
+    .padding(.horizontal, 16)
   }
 }
 
