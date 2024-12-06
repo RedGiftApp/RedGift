@@ -60,6 +60,8 @@ struct PageView<Page: View>: UIViewControllerRepresentable {
     func pageViewController(
       _ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
       previousViewControllers: [UIViewController], transitionCompleted completed: Bool
-    ) { if completed { currentPage.wrappedValue = pageViewController.view.tag } }
+    ) {
+      if completed { currentPage.wrappedValue = pageViewController.viewControllers![0].view.tag }
+    }
   }
 }
