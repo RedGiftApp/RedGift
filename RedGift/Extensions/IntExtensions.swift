@@ -19,8 +19,6 @@ extension Int {
       return String(format: "%.1fm", Double(self) / 1_000_000)
     } else if self >= 1000 {
       return String(format: "%.0fk", Double(self) / 1000)
-    } else if self >= 100 {
-      return String(format: "%.1fk", Double(self) / 1000)
     } else {
       return "\(self)"
     }
