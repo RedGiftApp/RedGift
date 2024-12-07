@@ -35,7 +35,7 @@ struct GifView: View {
       }
 
       // Player-PlayButton
-      PlayButtonView(doShow: store.playerState.isPaused)
+      PlayButtonView(doShow: store.playerState.isPaused && !store.playerState.isBuffering)
 
       // ProgressBar
       ProgressBar(
@@ -54,7 +54,7 @@ struct GifView: View {
         views: store.gif.views, likes: store.gif.likes, isLiked: FeedsFeature.isMuted,
         toggleLiked: { store.send(.playerAction(.toggleMuted)) }, isMuted: FeedsFeature.isMuted,
         toggleMuted: { store.send(.playerAction(.toggleMuted)) },
-        saveSpaceForTagList: tagListWidth > UIScreen.main.bounds.width - 50)
+        saveSpaceForTagList: tagListWidth > UIScreen.main.bounds.width - 16 + 34.uiScaled())
     }
     .onTapGesture { store.send(.playerAction(.togglePause)) }
   }

@@ -26,7 +26,6 @@ struct FeedsView: View {
       case .failed: Text("No feeds available.").font(.headline).scaleEffect(1.uiScaled())
       }
     }
-    .task { store.send(.fetchGifList) }
   }
 }
 

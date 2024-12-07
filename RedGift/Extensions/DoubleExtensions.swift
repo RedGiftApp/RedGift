@@ -7,4 +7,6 @@
 
 import Foundation
 
-extension Double { func uiScaled() -> CGFloat { return self * RedGiftApp.scalingFactor } }
+extension Double {
+  func uiScaled() -> CGFloat { return self * RedGiftApp.settingsStore.scalingFactor }
+}

@@ -13,7 +13,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Feeds.FeedsFeature")
 
 @Reducer struct FeedsFeature {
   static var currentPageIndex = 0
-  static var isMuted = true
+  static var isMuted = RedGiftApp.settingsStore.muteOnStartUp
 
   enum FetchState {
     case fetching

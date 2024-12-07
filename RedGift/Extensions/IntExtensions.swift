@@ -8,7 +8,7 @@
 import Foundation
 
 extension Int {
-  func uiScaled() -> CGFloat { return CGFloat(self) * RedGiftApp.scalingFactor }
+  func uiScaled() -> CGFloat { return Double(self).uiScaled() }
 
   func prettyFormat() -> String {
     if self >= 1_000_000_000 {

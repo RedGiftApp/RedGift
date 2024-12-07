@@ -14,15 +14,24 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     isPerceptionCheckingEnabled = false
     try! AVAudioSession.sharedInstance()
       .setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
+
+    UserDefaults.standard.register(defaults: [
+      SettingsFeature.kMuteOnStartUpKey: true, SettingsFeature.kScalingFactorKey: 1.25,
+    ])
+
+    RedGiftApp.settingsStore.send(
+      .setMuteOnStartUp(UserDefaults.standard.bool(forKey: SettingsFeature.kMuteOnStartUpKey)))
+    RedGiftApp.settingsStore.send(
+      .setScalingFactor(UserDefaults.standard.double(forKey: SettingsFeature.kScalingFactorKey)))
+
+    RedGiftApp.feedsStore.send(.fetchGifList)
   }
 }
 
 @main struct RedGiftApp: App {
-    static let scalingFactor: CGFloat = 1.25
-
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-  static let store = Store(
+  static let feedsStore = Store(
     initialState: FeedsFeature.State(
       gifList: IdentifiedArray(
         uniqueElements: GifList.sample.gifs.enumerated()
@@ -32,5 +41,21 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
               niches: GifList.sample.niches, tags: GifList.sample.tags, pageIndex: index)
           })), reducer: { FeedsFeature() })
 
-  var body: some Scene { WindowGroup { FeedsView(store: Self.store) } }
+  static let settingsStore = Store(
+    initialState: SettingsFeature.State(), reducer: { SettingsFeature() })
+
+  var body: some Scene {
+    WindowGroup {
+      TabView {
+        FeedsView(store: Self.feedsStore).tabItem { Label("Feeds", systemImage: "list.bullet") }
+          .onAppear {
+            FeedsFeature.currentPageIndex = 0
+            FeedsFeature.isMuted = RedGiftApp.settingsStore.muteOnStartUp
+          }
+
+        SettingsView(store: Self.settingsStore)
+          .tabItem { Label("Settings", systemImage: "gearshape") }
+      }
+    }
+  }
 }
