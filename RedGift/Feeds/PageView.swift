@@ -12,7 +12,7 @@ struct PageView<Page: View>: UIViewControllerRepresentable {
   let pages: [Page]
   @Binding var currentPage: Int
 
-  func makeCoordinator() -> Coordinator { Coordinator(pages: pages, currentPage: $currentPage) }
+  func makeCoordinator() -> Coordinator { Coordinator(parent: self) }
 
   func makeUIViewController(context: Context) -> UIPageViewController {
     let pageViewController = UIPageViewController(
@@ -24,21 +24,19 @@ struct PageView<Page: View>: UIViewControllerRepresentable {
 
   func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
     pageViewController.setViewControllers(
-      [context.coordinator.controllers[currentPage]], direction: .forward, animated: false)
+      [context.coordinator.makeViewController(index: currentPage)], direction: .forward,
+      animated: false)
   }
 
   class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    var controllers: [UIViewController]
-    var currentPage: Binding<Int>
+    let parent: PageView
 
-    init(pages: [Page], currentPage: Binding<Int>) {
-      self.controllers = pages.enumerated()
-        .map {
-          let viewController = UIHostingController(rootView: $1)
-          viewController.view.tag = $0
-          return viewController
-        }
-      self.currentPage = currentPage
+    init(parent: PageView) { self.parent = parent }
+
+    func makeViewController(index: Int) -> UIViewController {
+      let viewController = UIHostingController(rootView: parent.pages[index])
+      viewController.view.tag = index
+      return viewController
     }
 
     func pageViewController(
@@ -46,7 +44,7 @@ struct PageView<Page: View>: UIViewControllerRepresentable {
       viewControllerBefore viewController: UIViewController
     ) -> UIViewController? {
       let index = viewController.view.tag - 1
-      return index >= 0 ? controllers[index] : nil
+      return index >= 0 ? makeViewController(index: index) : nil
     }
 
     func pageViewController(
@@ -54,14 +52,12 @@ struct PageView<Page: View>: UIViewControllerRepresentable {
       viewControllerAfter viewController: UIViewController
     ) -> UIViewController? {
       let index = viewController.view.tag + 1
-      return index < controllers.count ? controllers[index] : nil
+      return index < parent.pages.count ? makeViewController(index: index) : nil
     }
 
     func pageViewController(
       _ pageViewController: UIPageViewController, didFinishAnimating finished: Bool,
       previousViewControllers: [UIViewController], transitionCompleted completed: Bool
-    ) {
-      if completed { currentPage.wrappedValue = pageViewController.viewControllers![0].view.tag }
-    }
+    ) { if completed { parent.currentPage = pageViewController.viewControllers![0].view.tag } }
   }
 }
