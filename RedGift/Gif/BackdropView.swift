@@ -13,16 +13,30 @@ struct BackdropView: View {
 
   var body: some View {
     GeometryReader { geometry in
-      KFImage(URL(string: url)).resizable().scaledToFill()
-        .frame(width: geometry.size.width, height: geometry.size.height).blur(radius: 18)
-        .opacity(0.5)
+      ZStack {
+        KFImage(URL(string: url)).resizable().scaledToFill()
+          .frame(width: geometry.size.width, height: geometry.size.height).blur(radius: 18)
+          .opacity(0.5)
+          .clipped()
+      }
     }
-    .clipped()
+    .ignoresSafeArea()
+    .overlay {
+      GeometryReader { geometry in
+        ZStack {
+          LinearGradient(
+            gradient: Gradient(stops: [
+              .init(color: .black, location: 0.0), .init(color: .clear, location: 1.0),
+            ]), startPoint: .top, endPoint: .bottom
+          )
+          .frame(height: geometry.safeAreaInsets.top)
+        }
+        .frame(maxHeight: .infinity, alignment: .top).ignoresSafeArea()
+      }
+    }
   }
 }
 
-#if DEBUG
-  struct BackdropView_Previews: PreviewProvider {
-    static var previews: some View { BackdropView(url: GifList.sample.gifs[0].urls.thumbnail) }
-  }
-#endif
+struct BackdropView_Previews: PreviewProvider {
+  static var previews: some View { BackdropView(url: GifList.sample.gifs[0].urls.thumbnail) }
+}

@@ -27,30 +27,29 @@ struct MetaInfoView: View {
         profile: user.profileImageUrl, isFollowed: !FeedsFeature.isMuted,
         toggleFollowed: toggleFollowed, timestamp: gif.createDate, user: userNameOrId,
         isVerified: user.verified, description: desc)
-
       TagListView(niches: niches, tags: tags, enableScroll: enableScrollForTagList)
     }
     .padding(.top, 16.uiScaled()).padding(.bottom, 16)
     .background {
       LinearGradient(
         gradient: Gradient(stops: [
-          .init(color: .black.opacity(0.498), location: 0.0),
+          .init(color: .black, location: 0), .init(color: .black.opacity(0.498), location: 0.2),
           .init(color: .black.opacity(0.3), location: 0.77), .init(color: .clear, location: 1.0),
-        ]), startPoint: .bottom, endPoint: .top)
+        ]), startPoint: .bottom, endPoint: .top
+      )
+      .ignoresSafeArea()
     }
     .frame(maxHeight: .infinity, alignment: .bottom)
   }
 }
 
-#if DEBUG
-  struct MetaInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-      ZStack {
-        Color.red
-        MetaInfoView(
-          gif: GifList.sample.gifs[0], user: GifList.sample.users[0], niches: GifList.sample.niches,
-          tags: GifList.sample.tags, toggleFollowed: {}, enableScrollForTagList: true)
-      }
+struct MetaInfoView_Previews: PreviewProvider {
+  static var previews: some View {
+    ZStack {
+      Color.red.ignoresSafeArea()
+      MetaInfoView(
+        gif: GifList.sample.gifs[0], user: GifList.sample.users[0], niches: GifList.sample.niches,
+        tags: GifList.sample.tags, toggleFollowed: {}, enableScrollForTagList: true)
     }
   }
-#endif
+}
