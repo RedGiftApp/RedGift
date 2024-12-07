@@ -42,7 +42,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Feeds.FeedsFeature")
         logger.info("on page \(pageIndex)")
         FeedsFeature.currentPageIndex = pageIndex
         let id = state.gifList.elements[pageIndex].id
-        return .send(.gifAction(.element(id: id, action: .playerAction(.reset))))
+        return .send(.gifAction(.element(id: id, action: .playerAction(.startPlay))))
       case .fetchGifList:
         state.fetchState = .fetching
         return .run { send in
