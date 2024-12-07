@@ -48,10 +48,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     WindowGroup {
       TabView {
         FeedsView(store: Self.feedsStore).tabItem { Label("Feeds", systemImage: "list.bullet") }
-          .onAppear {
-            FeedsFeature.currentPageIndex = 0
-            FeedsFeature.isMuted = RedGiftApp.settingsStore.muteOnStartUp
-          }
 
         SettingsView(store: Self.settingsStore)
           .tabItem { Label("Settings", systemImage: "gearshape") }
