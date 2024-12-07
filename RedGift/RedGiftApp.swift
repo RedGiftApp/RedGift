@@ -47,10 +47,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
   var body: some Scene {
     WindowGroup {
       TabView {
-        FeedsView(store: Self.feedsStore).tabItem { Label("Feeds", systemImage: "list.bullet") }
+        FeedsView(store: Self.feedsStore)
+          .tabItem { Label("Feeds", systemImage: "play.square.stack") }
 
-        SettingsView(store: Self.settingsStore)
-          .tabItem { Label("Settings", systemImage: "gearshape") }
+        SettingsView(store: Self.settingsStore).tabItem { Label("Settings", systemImage: "gear") }
       }
     }
   }
