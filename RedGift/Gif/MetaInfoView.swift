@@ -27,17 +27,19 @@ struct MetaInfoView: View {
         profile: user.profileImageUrl, isFollowed: !FeedsFeature.isMuted,
         toggleFollowed: toggleFollowed, timestamp: gif.createDate, user: userNameOrId,
         isVerified: user.verified, description: desc)
+
       TagListView(niches: niches, tags: tags, enableScroll: enableScrollForTagList)
     }
     .padding(.top, 16.uiScaled()).padding(.bottom, 16)
     .background {
-      LinearGradient(
-        gradient: Gradient(stops: [
-          .init(color: .black, location: 0), .init(color: .black.opacity(0.498), location: 0.2),
-          .init(color: .black.opacity(0.3), location: 0.77), .init(color: .clear, location: 1.0),
-        ]), startPoint: .bottom, endPoint: .top
-      )
-      .ignoresSafeArea()
+      GeometryReader { geometry in
+        LinearGradient(
+          gradient: Gradient(stops: [
+            .init(color: .black, location: 0),
+            .init(color: .black.opacity(0.498), location: 20 / geometry.size.height),
+            .init(color: .black.opacity(0.3), location: 0.77), .init(color: .clear, location: 1.0),
+          ]), startPoint: .bottom, endPoint: .top)
+      }
     }
     .frame(maxHeight: .infinity, alignment: .bottom)
   }

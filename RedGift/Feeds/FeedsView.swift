@@ -21,7 +21,7 @@ struct FeedsView: View {
           currentPage: Binding(
             get: { FeedsFeature.currentPageIndex }, set: { store.send(.updatePageIndex($0)) })
         )
-        .ignoresSafeArea()
+        .ignoresSafeArea(edges: .top)
 
       case .fetching: ProgressView("Fetching feeds...").scaleEffect(1.uiScaled())
 

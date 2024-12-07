@@ -16,17 +16,17 @@ struct BackdropView: View {
       ZStack {
         KFImage(URL(string: url)).resizable().scaledToFill()
           .frame(width: geometry.size.width, height: geometry.size.height).blur(radius: 18)
-          .opacity(0.5)
-          .clipped()
+          .opacity(0.5).clipped()
       }
     }
-    .ignoresSafeArea()
+    .ignoresSafeArea(edges: .top)
     .overlay {
       GeometryReader { geometry in
         ZStack {
           LinearGradient(
             gradient: Gradient(stops: [
-              .init(color: .black, location: 0.0), .init(color: .clear, location: 1.0),
+              .init(color: .black, location: 0.0),
+              .init(color: .clear, location: 10 / geometry.safeAreaInsets.top),
             ]), startPoint: .top, endPoint: .bottom
           )
           .frame(height: geometry.safeAreaInsets.top)
