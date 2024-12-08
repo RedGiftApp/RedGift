@@ -70,8 +70,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         guard let player = state.player else { return .none }
         logger.log(level: .info, "destroying player for page \(state.pageIndex)")
         state.cancellables.removeAll()
-        player.playerDelegate = nil
-        player.playbackDelegate = nil
+        player.delegate = nil
         state.player = nil
         state.currentTime = 0.0
         state.bufferTime = 0.0
