@@ -9,8 +9,16 @@ import AVFoundation
 import ComposableArchitecture
 import SwiftUI
 
+class AppState {
+  @Published var isMuted: Bool = true
+  static let shared = AppState()
+
+  private init() {}
+}
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
   override public init() {
+    super.init()
     isPerceptionCheckingEnabled = false
     try! AVAudioSession.sharedInstance()
       .setCategory(.playback, mode: .moviePlayback, options: .duckOthers)
@@ -23,6 +31,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
       .setMuteOnStartUp(UserDefaults.standard.bool(forKey: SettingsFeature.kMuteOnStartUpKey)))
     RedGiftApp.settingsStore.send(
       .setScalingFactor(UserDefaults.standard.double(forKey: SettingsFeature.kScalingFactorKey)))
+
+    AppState.shared.isMuted = RedGiftApp.settingsStore.muteOnStartUp
 
     RedGiftApp.feedsStore.send(.fetchGifList)
   }

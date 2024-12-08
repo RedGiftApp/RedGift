@@ -53,8 +53,8 @@ struct GifView: View {
 
       // SideBar
       SideBarView(
-        views: store.gif.views, likes: store.gif.likes, isLiked: FeedsFeature.isMuted,
-        toggleLiked: { store.send(.playerAction(.toggleMuted)) }, isMuted: FeedsFeature.isMuted,
+        views: store.gif.views, likes: store.gif.likes, isLiked: AppState.shared.isMuted,
+        toggleLiked: { store.send(.playerAction(.toggleMuted)) }, isMuted: AppState.shared.isMuted,
         toggleMuted: { store.send(.playerAction(.toggleMuted)) },
         saveSpaceForTagList: tagListWidth > UIScreen.main.bounds.width - 16 + 34.uiScaled())
     }
@@ -98,15 +98,13 @@ struct GifView: View {
   }
 }
 
-#if DEBUG
-  struct GifView_Previews: PreviewProvider {
-    static var previews: some View {
-      GifView(
-        store: Store(
-          initialState: GifFeature.State(
-            id: UUID(), gif: GifList.sample.gifs[0], user: GifList.sample.users[0],
-            niches: GifList.sample.niches, tags: GifList.sample.tags, pageIndex: 0),
-          reducer: { GifFeature() }))
-    }
+struct GifView_Previews: PreviewProvider {
+  static var previews: some View {
+    GifView(
+      store: Store(
+        initialState: GifFeature.State(
+          id: UUID(), gif: GifList.sample.gifs[0], user: GifList.sample.users[0],
+          niches: GifList.sample.niches, tags: GifList.sample.tags, pageIndex: 0),
+        reducer: { GifFeature() }))
   }
-#endif
+}

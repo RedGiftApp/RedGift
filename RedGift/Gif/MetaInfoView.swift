@@ -24,7 +24,7 @@ struct MetaInfoView: View {
       let userDesc = user.description ?? ""
       let desc = !gifDesc.isEmpty ? gifDesc : userDesc
       UserInfoView(
-        profile: user.profileImageUrl, isFollowed: !FeedsFeature.isMuted,
+        profile: user.profileImageUrl, isFollowed: !AppState.shared.isMuted,
         toggleFollowed: toggleFollowed, timestamp: gif.createDate, user: userNameOrId,
         isVerified: user.verified, description: desc)
 

@@ -18,9 +18,7 @@ struct PlayerView: UIViewControllerRepresentable {
     return context.coordinator.createPlayer()
   }
 
-  func updateUIViewController(_ uiViewController: Player, context: Context) {
-    context.coordinator.updatePlayer(player: uiViewController)
-  }
+  func updateUIViewController(_ uiViewController: Player, context: Context) {}
 
   static func dismantleUIViewController(_ uiViewController: Player, coordinator: Coordinator) {
     coordinator.destroyPlayer()
@@ -37,8 +35,6 @@ struct PlayerView: UIViewControllerRepresentable {
       store.send(.createPlayer(self))
       return store.player!
     }
-
-    func updatePlayer(player: Player) { store.send(.updatePlayer(player)) }
 
     func destroyPlayer() { store.send(.destroyPlayer) }
 

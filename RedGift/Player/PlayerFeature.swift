@@ -5,6 +5,7 @@
 //  Created by eliottwang on 2024/11/18.
 //
 
+import Combine
 import ComposableArchitecture
 import CoreMedia
 import Foundation
@@ -18,6 +19,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
 
   @ObservableState struct State: Equatable {
     var player: Player?
+    var cancellables = Set<AnyCancellable>()
 
     var urls: GifList.Gif.URLs
     var pageIndex: Int
@@ -31,7 +33,6 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
 
   enum Action: Equatable {
     case createPlayer(PlayerView.Coordinator)
-    case updatePlayer(Player)
     case destroyPlayer
     case startPlay
     case seek(Double)
@@ -64,20 +65,15 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         player.playbackDelegate = delegate
         player.loadViewIfNeeded()
         player.playbackLoops = true
+        player.muted = AppState.shared.isMuted
         player.url = URL(string: state.urls.hd ?? state.urls.sd)
-        player.muted = FeedsFeature.isMuted
-        state.player = player
-        return .none
-      case .updatePlayer(let player):
-        if state.player == player { return .none }
-        logger.log(level: .info, "updating player for page \(state.pageIndex)")
-        state.player?.playerDelegate = nil
-        state.player?.playbackDelegate = nil
+        AppState.shared.$isMuted.sink { player.muted = $0 }.store(in: &state.cancellables)
         state.player = player
         return .none
       case .destroyPlayer:
         guard let player = state.player else { return .none }
         logger.log(level: .info, "destroying player for page \(state.pageIndex)")
+        state.cancellables.removeAll()
         player.playerDelegate = nil
         player.playbackDelegate = nil
         state.player = nil
@@ -115,8 +111,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         state.isShowingPlayPauseAnimation = false
         return .none
       case .toggleMuted:
-        FeedsFeature.isMuted.toggle()
-        state.player!.muted = FeedsFeature.isMuted
+        AppState.shared.isMuted.toggle()
         return .none
 
       // MARK: PlayerDelegate

@@ -12,9 +12,6 @@ import Logging
 private let logger = Logger(label: "ren.hazuki.RedGift.Feeds.FeedsFeature")
 
 @Reducer struct FeedsFeature {
-  static var currentPageIndex = 0
-  static var isMuted = RedGiftApp.settingsStore.muteOnStartUp
-
   enum FetchState {
     case fetching
     case success
@@ -22,6 +19,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Feeds.FeedsFeature")
   }
 
   @ObservableState struct State: Equatable {
+    var currentPageIndex = 0
     var fetchState: FetchState = .fetching
     var gifList: IdentifiedArrayOf<GifFeature.State> = []
   }
@@ -40,7 +38,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Feeds.FeedsFeature")
       switch action {
       case .updatePageIndex(let pageIndex):
         logger.info("on page \(pageIndex)")
-        FeedsFeature.currentPageIndex = pageIndex
+        state.currentPageIndex = pageIndex
         let id = state.gifList.elements[pageIndex].id
         return .send(.gifAction(.element(id: id, action: .playerAction(.startPlay))))
       case .fetchGifList:

@@ -19,7 +19,7 @@ struct FeedsView: View {
           pages: store.scope(state: \.gifList, action: \.gifAction)
             .map { store in GifView(store: store) },
           currentPage: Binding(
-            get: { FeedsFeature.currentPageIndex }, set: { store.send(.updatePageIndex($0)) })
+            get: { store.currentPageIndex }, set: { store.send(.updatePageIndex($0)) })
         )
         .ignoresSafeArea(edges: .top)
 
