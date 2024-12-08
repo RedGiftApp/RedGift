@@ -26,6 +26,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
 
     var currentTime = 0.0
     var bufferTime = 0.0
+    var isPlaying = false
     var isPaused = false
     var isBuffering = true
     var isShowingPlayPauseAnimation = false
@@ -64,6 +65,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         player.playerDelegate = delegate
         player.playbackDelegate = delegate
         player.loadViewIfNeeded()
+        player.disableBufferingWait()
         player.playbackLoops = true
         player.muted = AppState.shared.isMuted
         player.url = URL(string: state.urls.hd ?? state.urls.sd)
@@ -79,6 +81,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         state.player = nil
         state.currentTime = 0.0
         state.bufferTime = 0.0
+        state.isPlaying = false
         state.isPaused = false
         state.isBuffering = true
         state.isShowingPlayPauseAnimation = false
@@ -117,10 +120,12 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
       // MARK: PlayerDelegate
       case .playerReady: return .none
       case .playerPlaybackStateDidChange(let player):
+        state.isPlaying = player.playbackState == .playing
         state.isPaused = player.playbackState == .paused
         return .none
       case .playerBufferingStateDidChange(let player):
         state.isBuffering = player.bufferingState != .ready
+        // TODO: auto resume after stalled
         return .none
       case .playerBufferTimeDidChange(let bufferTime):
         state.bufferTime = bufferTime

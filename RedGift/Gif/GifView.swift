@@ -31,7 +31,7 @@ struct GifView: View {
       playerView
 
       /// ** keep this **
-      if store.playerState.isBuffering {
+      if !store.playerState.isPlaying && store.playerState.isBuffering {
         ProgressView().scaleEffect(2.uiScaled())
           .shadow(color: .black, radius: 5.uiScaled(), x: 1.uiScaled(), y: 0.uiScaled())
       }
