@@ -14,8 +14,6 @@ import Logging
 private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
 
 @Reducer struct PlayerFeature {
-  static let timeStep = 0.05
-
   @ObservableState struct State: Equatable {
     var player: RGPlayer?
     var cancellables = Set<AnyCancellable>()
@@ -87,8 +85,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         return .none
       case .seek(let seekTime):
         let target = CMTime(seconds: seekTime, preferredTimescale: CMTimeScale(MSEC_PER_SEC))
-        let tolerance = CMTime(
-          seconds: PlayerFeature.timeStep / 2, preferredTimescale: CMTimeScale(MSEC_PER_SEC))
+        let tolerance = CMTime(seconds: 0.05, preferredTimescale: CMTimeScale(MSEC_PER_SEC))
         state.player!.seekToTime(to: target, toleranceBefore: tolerance, toleranceAfter: tolerance)
         return .none
       case .togglePause:
