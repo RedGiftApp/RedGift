@@ -10,7 +10,6 @@ import ComposableArchitecture
 import CoreMedia
 import Foundation
 import Logging
-import Player
 
 private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
 
@@ -18,7 +17,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
   static let timeStep = 0.05
 
   @ObservableState struct State: Equatable {
-    var player: Player?
+    var player: RGPlayer?
     var cancellables = Set<AnyCancellable>()
 
     var urls: GifList.Gif.URLs
@@ -33,7 +32,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
   }
 
   enum Action: Equatable {
-    case createPlayer(PlayerView.Coordinator)
+    case createPlayer(RGPlayerView.Coordinator)
     case destroyPlayer
     case startPlay
     case seek(Double)
@@ -41,18 +40,16 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
     case doneShowingPlayPauseAnimation
     case toggleMuted
 
-    // MARK: PlayerDelegate
-    case playerReady(Player)
-    case playerPlaybackStateDidChange(Player)
-    case playerBufferingStateDidChange(Player)
+    // MARK: RGPlayer.Delegate
+    case playerReady(RGPlayer)
+    case playerPlaybackStateDidChange(RGPlayer)
+    case playerBufferingStateDidChange(RGPlayer)
     case playerBufferTimeDidChange(Double)
-
-    // MARK: PlayerPlaybackDelegate
-    case playerCurrentTimeDidChange(Player)
-    case playerPlaybackWillStartFromBeginning(Player)
-    case playerPlaybackDidEnd(Player)
-    case playerPlaybackWillLoop(Player)
-    case playerPlaybackDidLoop(Player)
+    case playerCurrentTimeDidChange(RGPlayer)
+    case playerPlaybackWillStartFromBeginning(RGPlayer)
+    case playerPlaybackDidEnd(RGPlayer)
+    case playerPlaybackWillLoop(RGPlayer)
+    case playerPlaybackDidLoop(RGPlayer)
   }
 
   var body: some ReducerOf<PlayerFeature> {
@@ -61,9 +58,8 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
       case .createPlayer(let delegate):
         if state.player != nil { return .none }
         logger.log(level: .info, "creating player for page \(state.pageIndex)")
-        let player = Player()
-        player.playerDelegate = delegate
-        player.playbackDelegate = delegate
+        let player = RGPlayer()
+        player.delegate = delegate
         player.loadViewIfNeeded()
         player.disableBufferingWait()
         player.playbackLoops = true

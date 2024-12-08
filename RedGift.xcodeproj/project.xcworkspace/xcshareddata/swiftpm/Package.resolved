@@ -1,5 +1,5 @@
 {
-  "originHash" : "1025ed7924c30dbaf1b86e405ddbe86047d8b1d8dd50735e24521825387a37e4",
+  "originHash" : "1f4b06abe72e00eab4bac0737c6db41f70ec7fcacfeafa38f9a7930cee5b3f58",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -17,15 +17,6 @@
       "state" : {
         "revision" : "b6256f191b4c1d8d09f4df94bae69e5ac6e42c81",
         "version" : "8.1.1"
-      }
-    },
-    {
-      "identity" : "player",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/piemonte/Player",
-      "state" : {
-        "revision" : "d6a6c266e80f90fa93430371076964c196a1d2ec",
-        "version" : "0.14.0"
       }
     },
     {

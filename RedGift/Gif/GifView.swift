@@ -11,12 +11,12 @@ import SwiftUI
 struct GifView: View {
   let store: StoreOf<GifFeature>
   let tagListWidth: CGFloat
-  let playerView: PlayerView
+  let playerView: RGPlayerView
 
   init(store: StoreOf<GifFeature>) {
     self.store = store
     self.tagListWidth = Self.getTagListWidth(niches: store.niches, tags: store.tags)
-    self.playerView = PlayerView(store: store.scope(state: \.playerState, action: \.playerAction))
+    self.playerView = RGPlayerView(store: store.scope(state: \.playerState, action: \.playerAction))
   }
 
   var body: some View {

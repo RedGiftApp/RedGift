@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D8D7A082CEAA8BD00A53E60 /* Player in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7A072CEAA8BD00A53E60 /* Player */; };
 		1D8D7A0B2CEAA8EF00A53E60 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7A0A2CEAA8EF00A53E60 /* ComposableArchitecture */; };
 		1D8D7ACC2CEB703B00A53E60 /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = 1D8D7ACB2CEB703B00A53E60 /* Logging */; };
 		1DEE718A2CF9F2DE00138D58 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1DEE71892CF9F2DE00138D58 /* Kingfisher */; };
@@ -39,7 +38,6 @@
 				1DEE718A2CF9F2DE00138D58 /* Kingfisher in Frameworks */,
 				1D8D7ACC2CEB703B00A53E60 /* Logging in Frameworks */,
 				1D8D7A0B2CEAA8EF00A53E60 /* ComposableArchitecture in Frameworks */,
-				1D8D7A082CEAA8BD00A53E60 /* Player in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +80,6 @@
 			);
 			name = RedGift;
 			packageProductDependencies = (
-				1D8D7A072CEAA8BD00A53E60 /* Player */,
 				1D8D7A0A2CEAA8EF00A53E60 /* ComposableArchitecture */,
 				1D8D7ACB2CEB703B00A53E60 /* Logging */,
 				1DEE71892CF9F2DE00138D58 /* Kingfisher */,
@@ -117,7 +114,6 @@
 			mainGroup = 1D8D79EC2CEAA80900A53E60;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				1D8D7A062CEAA8BD00A53E60 /* XCRemoteSwiftPackageReference "Player" */,
 				1D8D7A092CEAA8EF00A53E60 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				1D8D7ACA2CEB703B00A53E60 /* XCRemoteSwiftPackageReference "swift-log" */,
 				1DEE71882CF9F2DE00138D58 /* XCRemoteSwiftPackageReference "Kingfisher" */,
@@ -348,14 +344,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1D8D7A062CEAA8BD00A53E60 /* XCRemoteSwiftPackageReference "Player" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/piemonte/Player";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.14.0;
-			};
-		};
 		1D8D7A092CEAA8EF00A53E60 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -383,11 +371,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1D8D7A072CEAA8BD00A53E60 /* Player */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1D8D7A062CEAA8BD00A53E60 /* XCRemoteSwiftPackageReference "Player" */;
-			productName = Player;
-		};
 		1D8D7A0A2CEAA8EF00A53E60 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1D8D7A092CEAA8EF00A53E60 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
