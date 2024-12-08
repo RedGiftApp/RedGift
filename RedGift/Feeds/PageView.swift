@@ -36,6 +36,14 @@ struct PageView: UIViewControllerRepresentable {
 
     init(parent: PageView) { self.parent = parent }
 
+    private func destroyViewController(index: Int) {
+      guard index >= 0 && index < parent.pages.count else { return }
+
+      let gifView = parent.pages[index]
+      gifView.playerView.coordinator.destroyPlayer()
+      cache.removeValue(forKey: index)
+    }
+
     func getOrCreateViewController(index: Int) -> UIViewController? {
       guard index >= 0 && index < parent.pages.count else { return nil }
 
@@ -76,7 +84,7 @@ struct PageView: UIViewControllerRepresentable {
         let index = pageViewController.viewControllers![0].view.tag
         let previousIndex = previousViewControllers[0].view.tag
         let sign = index - previousIndex
-        cache.removeValue(forKey: index - 3 * sign)
+        destroyViewController(index: index - 3 * sign)
         _ = getOrCreateViewController(index: index + 2 * sign)
         parent.currentPage = index
       }
