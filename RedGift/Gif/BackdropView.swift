@@ -20,20 +20,6 @@ struct BackdropView: View {
       }
     }
     .ignoresSafeArea(edges: .top)
-    .overlay {
-      GeometryReader { geometry in
-        ZStack {
-          LinearGradient(
-            gradient: Gradient(stops: [
-              .init(color: .black, location: 0.0),
-              .init(color: .clear, location: 10 / geometry.safeAreaInsets.top),
-            ]), startPoint: .top, endPoint: .bottom
-          )
-          .frame(height: geometry.safeAreaInsets.top)
-        }
-        .frame(maxHeight: .infinity, alignment: .top).ignoresSafeArea()
-      }
-    }
   }
 }
 

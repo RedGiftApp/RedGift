@@ -32,14 +32,11 @@ struct MetaInfoView: View {
     }
     .padding(.top, 16.uiScaled()).padding(.bottom, 16)
     .background {
-      GeometryReader { geometry in
-        LinearGradient(
-          gradient: Gradient(stops: [
-            .init(color: .black, location: 0),
-            .init(color: .black.opacity(0.498), location: 20 / geometry.size.height),
-            .init(color: .black.opacity(0.3), location: 0.77), .init(color: .clear, location: 1.0),
-          ]), startPoint: .bottom, endPoint: .top)
-      }
+      LinearGradient(
+        gradient: Gradient(stops: [
+          .init(color: .black.opacity(0.498), location: 0),
+          .init(color: .black.opacity(0.3), location: 0.77), .init(color: .clear, location: 1.0),
+        ]), startPoint: .bottom, endPoint: .top)
     }
     .frame(maxHeight: .infinity, alignment: .bottom)
   }
