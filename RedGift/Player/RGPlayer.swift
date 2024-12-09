@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import Player
 
 class RGPlayer: Player {
   weak var delegate: Delegate?

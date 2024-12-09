@@ -1,5 +1,5 @@
 {
-  "originHash" : "1f4b06abe72e00eab4bac0737c6db41f70ec7fcacfeafa38f9a7930cee5b3f58",
+  "originHash" : "cc50cb8d641749dd91c1188439d5084e146ff4302706fdb7772e7684d9035436",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "b6256f191b4c1d8d09f4df94bae69e5ac6e42c81",
         "version" : "8.1.1"
+      }
+    },
+    {
+      "identity" : "player",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/w43322/Player",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b6fed08582886717cb4db70d07d14eb4a56774d5"
       }
     },
     {

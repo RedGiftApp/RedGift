@@ -1,5 +1,5 @@
 //
-//  RGPlayerView.swift
+//  PlayerView.swift
 //  RedGift
 //
 //  Created by eliottwang on 2024/11/18.
@@ -8,7 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct RGPlayerView: UIViewControllerRepresentable {
+struct PlayerView: UIViewControllerRepresentable {
   let coordinator: Coordinator
 
   init(store: StoreOf<PlayerFeature>) { coordinator = Coordinator(store: store) }

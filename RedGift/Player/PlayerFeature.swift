@@ -30,7 +30,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
   }
 
   enum Action: Equatable {
-    case createPlayer(RGPlayerView.Coordinator)
+    case createPlayer(PlayerView.Coordinator)
     case destroyPlayer
     case startPlay
     case seek(Double)
@@ -109,7 +109,7 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
         AppState.shared.isMuted.toggle()
         return .none
 
-      // MARK: PlayerDelegate
+      // MARK: RGPlayer.Delegate
       case .playerReady: return .none
       case .playerPlaybackStateDidChange(let player):
         state.isPlaying = player.playbackState == .playing
@@ -122,8 +122,6 @@ private let logger = Logger(label: "ren.hazuki.RedGift.Player.PlayerFeature")
       case .playerBufferTimeDidChange(let bufferTime):
         state.bufferTime = bufferTime
         return .none
-
-      // MARK: PlayerPlaybackDelegate
       case .playerCurrentTimeDidChange(let player):
         state.currentTime = player.currentTimeInterval
         return .none
